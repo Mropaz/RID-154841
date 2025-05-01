@@ -1,0 +1,152 @@
+[2025-01-26T18:58:19.961+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-01-26T18:58:19.986+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: clientes_dag.Extractor manual__2025-01-26T18:58:16.962127+00:00 [queued]>
+[2025-01-26T18:58:20.002+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: clientes_dag.Extractor manual__2025-01-26T18:58:16.962127+00:00 [queued]>
+[2025-01-26T18:58:20.003+0000] {taskinstance.py:2866} INFO - Starting attempt 1 of 6
+[2025-01-26T18:58:20.023+0000] {taskinstance.py:2889} INFO - Executing <Task(PythonOperator): Extractor> on 2025-01-26 18:58:16.962127+00:00
+[2025-01-26T18:58:20.032+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=126) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-01-26T18:58:20.036+0000] {standard_task_runner.py:72} INFO - Started process 128 to run task
+[2025-01-26T18:58:20.037+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'clientes_dag', 'Extractor', 'manual__2025-01-26T18:58:16.962127+00:00', '--job-id', '52', '--raw', '--subdir', 'DAGS_FOLDER/app/clientes_dag.py', '--cfg-path', '/tmp/tmpb9byyjd2']
+[2025-01-26T18:58:20.040+0000] {standard_task_runner.py:105} INFO - Job 52: Subtask Extractor
+[2025-01-26T18:58:20.116+0000] {task_command.py:467} INFO - Running <TaskInstance: clientes_dag.Extractor manual__2025-01-26T18:58:16.962127+00:00 [running]> on host 85fd6c8b2c4d
+[2025-01-26T18:58:20.224+0000] {taskinstance.py:3132} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='dnc' AIRFLOW_CTX_DAG_ID='clientes_dag' AIRFLOW_CTX_TASK_ID='Extractor' AIRFLOW_CTX_EXECUTION_DATE='2025-01-26T18:58:16.962127+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-01-26T18:58:16.962127+00:00'
+[2025-01-26T18:58:20.225+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-01-26T18:58:20.226+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-01-26T18:58:20.227+0000] {logging_mixin.py:190} INFO - Current task name:Extractor state:running start_date:2025-01-26 18:58:19.987457+00:00
+[2025-01-26T18:58:20.227+0000] {logging_mixin.py:190} INFO - Dag name:clientes_dag and current dag run status:running
+[2025-01-26T18:58:20.228+0000] {taskinstance.py:731} INFO - ::endgroup::
+[2025-01-26T18:58:20.229+0000] {logging_mixin.py:190} INFO - Initializing data extraction from Raw Folder
+[2025-01-26T18:58:20.743+0000] {taskinstance.py:3311} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 767, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 733, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 422, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/app/extractor_loader.py", line 25, in extractor_from_raw_to_bronze
+    response = s3_client.get_object(bucket=BUCKET_NAME, key=FILE_KEY)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/client.py", line 569, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/client.py", line 980, in _make_api_call
+    request_dict = self._convert_to_request_dict(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/client.py", line 1047, in _convert_to_request_dict
+    request_dict = self._serializer.serialize_to_request(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/validate.py", line 381, in serialize_to_request
+    raise ParamValidationError(report=report.generate_report())
+botocore.exceptions.ParamValidationError: Parameter validation failed:
+Missing required parameter in input: "Bucket"
+Missing required parameter in input: "Key"
+Unknown parameter in input: "bucket", must be one of: Bucket, IfMatch, IfModifiedSince, IfNoneMatch, IfUnmodifiedSince, Key, Range, ResponseCacheControl, ResponseContentDisposition, ResponseContentEncoding, ResponseContentLanguage, ResponseContentType, ResponseExpires, VersionId, SSECustomerAlgorithm, SSECustomerKey, SSECustomerKeyMD5, RequestPayer, PartNumber, ExpectedBucketOwner, ChecksumMode
+Unknown parameter in input: "key", must be one of: Bucket, IfMatch, IfModifiedSince, IfNoneMatch, IfUnmodifiedSince, Key, Range, ResponseCacheControl, ResponseContentDisposition, ResponseContentEncoding, ResponseContentLanguage, ResponseContentType, ResponseExpires, VersionId, SSECustomerAlgorithm, SSECustomerKey, SSECustomerKeyMD5, RequestPayer, PartNumber, ExpectedBucketOwner, ChecksumMode
+[2025-01-26T18:58:20.780+0000] {logging_mixin.py:190} INFO - Task instance in failure state
+[2025-01-26T18:58:20.782+0000] {logging_mixin.py:190} INFO - Task start:2025-01-26 18:58:19.987457+00:00 end:2025-01-26 18:58:20.779218+00:00 duration:0.791761
+[2025-01-26T18:58:20.783+0000] {logging_mixin.py:190} INFO - Task:<Task(PythonOperator): Extractor> dag:<DAG: clientes_dag> dagrun:<DagRun clientes_dag @ 2025-01-26 18:58:16.962127+00:00: manual__2025-01-26T18:58:16.962127+00:00, state:running, queued_at: 2025-01-26 18:58:16.999862+00:00. externally triggered: True>
+[2025-01-26T18:58:20.784+0000] {logging_mixin.py:190} INFO - Failure caused by Parameter validation failed:
+Missing required parameter in input: "Bucket"
+Missing required parameter in input: "Key"
+Unknown parameter in input: "bucket", must be one of: Bucket, IfMatch, IfModifiedSince, IfNoneMatch, IfUnmodifiedSince, Key, Range, ResponseCacheControl, ResponseContentDisposition, ResponseContentEncoding, ResponseContentLanguage, ResponseContentType, ResponseExpires, VersionId, SSECustomerAlgorithm, SSECustomerKey, SSECustomerKeyMD5, RequestPayer, PartNumber, ExpectedBucketOwner, ChecksumMode
+Unknown parameter in input: "key", must be one of: Bucket, IfMatch, IfModifiedSince, IfNoneMatch, IfUnmodifiedSince, Key, Range, ResponseCacheControl, ResponseContentDisposition, ResponseContentEncoding, ResponseContentLanguage, ResponseContentType, ResponseExpires, VersionId, SSECustomerAlgorithm, SSECustomerKey, SSECustomerKeyMD5, RequestPayer, PartNumber, ExpectedBucketOwner, ChecksumMode
+[2025-01-26T18:58:20.785+0000] {taskinstance.py:1225} INFO - Marking task as UP_FOR_RETRY. dag_id=clientes_dag, task_id=Extractor, run_id=manual__2025-01-26T18:58:16.962127+00:00, execution_date=20250126T185816, start_date=20250126T185819, end_date=20250126T185820
+[2025-01-26T18:58:20.841+0000] {taskinstance.py:340} INFO - ::group::Post task execution logs
+[2025-01-26T18:58:20.843+0000] {standard_task_runner.py:124} ERROR - Failed to execute job 52 for task Extractor (Parameter validation failed:
+Missing required parameter in input: "Bucket"
+Missing required parameter in input: "Key"
+Unknown parameter in input: "bucket", must be one of: Bucket, IfMatch, IfModifiedSince, IfNoneMatch, IfUnmodifiedSince, Key, Range, ResponseCacheControl, ResponseContentDisposition, ResponseContentEncoding, ResponseContentLanguage, ResponseContentType, ResponseExpires, VersionId, SSECustomerAlgorithm, SSECustomerKey, SSECustomerKeyMD5, RequestPayer, PartNumber, ExpectedBucketOwner, ChecksumMode
+Unknown parameter in input: "key", must be one of: Bucket, IfMatch, IfModifiedSince, IfNoneMatch, IfUnmodifiedSince, Key, Range, ResponseCacheControl, ResponseContentDisposition, ResponseContentEncoding, ResponseContentLanguage, ResponseContentType, ResponseExpires, VersionId, SSECustomerAlgorithm, SSECustomerKey, SSECustomerKeyMD5, RequestPayer, PartNumber, ExpectedBucketOwner, ChecksumMode; 128)
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py", line 117, in _start_by_fork
+    ret = args.func(args, dag=self.dag)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/cli_config.py", line 49, in command
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/cli.py", line 116, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 483, in task_run
+    task_return_code = _run_task_by_selected_method(args, _dag, ti)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 256, in _run_task_by_selected_method
+    return _run_raw_task(args, ti)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 341, in _run_raw_task
+    return ti._run_raw_task(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 97, in wrapper
+    return func(*args, session=session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3005, in _run_raw_task
+    return _run_raw_task(
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 273, in _run_raw_task
+    TaskInstance._execute_task_with_callbacks(
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3159, in _execute_task_with_callbacks
+    result = self._execute_task(context, task_orig)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3183, in _execute_task
+    return _execute_task(self, context, task_orig)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 767, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 733, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 422, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/app/extractor_loader.py", line 25, in extractor_from_raw_to_bronze
+    response = s3_client.get_object(bucket=BUCKET_NAME, key=FILE_KEY)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/client.py", line 569, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/client.py", line 980, in _make_api_call
+    request_dict = self._convert_to_request_dict(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/client.py", line 1047, in _convert_to_request_dict
+    request_dict = self._serializer.serialize_to_request(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/validate.py", line 381, in serialize_to_request
+    raise ParamValidationError(report=report.generate_report())
+botocore.exceptions.ParamValidationError: Parameter validation failed:
+Missing required parameter in input: "Bucket"
+Missing required parameter in input: "Key"
+Unknown parameter in input: "bucket", must be one of: Bucket, IfMatch, IfModifiedSince, IfNoneMatch, IfUnmodifiedSince, Key, Range, ResponseCacheControl, ResponseContentDisposition, ResponseContentEncoding, ResponseContentLanguage, ResponseContentType, ResponseExpires, VersionId, SSECustomerAlgorithm, SSECustomerKey, SSECustomerKeyMD5, RequestPayer, PartNumber, ExpectedBucketOwner, ChecksumMode
+Unknown parameter in input: "key", must be one of: Bucket, IfMatch, IfModifiedSince, IfNoneMatch, IfUnmodifiedSince, Key, Range, ResponseCacheControl, ResponseContentDisposition, ResponseContentEncoding, ResponseContentLanguage, ResponseContentType, ResponseExpires, VersionId, SSECustomerAlgorithm, SSECustomerKey, SSECustomerKeyMD5, RequestPayer, PartNumber, ExpectedBucketOwner, ChecksumMode
+[2025-01-26T18:58:20.882+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 1
+[2025-01-26T18:58:20.928+0000] {taskinstance.py:3895} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-01-26T18:58:20.938+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

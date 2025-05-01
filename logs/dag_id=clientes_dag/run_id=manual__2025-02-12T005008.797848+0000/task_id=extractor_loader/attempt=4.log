@@ -1,0 +1,130 @@
+[2025-02-12T00:50:38.734+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-02-12T00:50:38.773+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: clientes_dag.extractor_loader manual__2025-02-12T00:50:08.797848+00:00 [queued]>
+[2025-02-12T00:50:38.803+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: clientes_dag.extractor_loader manual__2025-02-12T00:50:08.797848+00:00 [queued]>
+[2025-02-12T00:50:38.804+0000] {taskinstance.py:2866} INFO - Starting attempt 4 of 6
+[2025-02-12T00:50:38.827+0000] {taskinstance.py:2889} INFO - Executing <Task(PythonOperator): extractor_loader> on 2025-02-12 00:50:08.797848+00:00
+[2025-02-12T00:50:38.837+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'clientes_dag', 'extractor_loader', 'manual__2025-02-12T00:50:08.797848+00:00', '--job-id', '277', '--raw', '--subdir', 'DAGS_FOLDER/app/clientes_dag.py', '--cfg-path', '/tmp/tmpj9xz4lhf']
+[2025-02-12T00:50:38.839+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=81) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-02-12T00:50:38.841+0000] {standard_task_runner.py:72} INFO - Started process 83 to run task
+[2025-02-12T00:50:38.841+0000] {standard_task_runner.py:105} INFO - Job 277: Subtask extractor_loader
+[2025-02-12T00:50:38.908+0000] {task_command.py:467} INFO - Running <TaskInstance: clientes_dag.extractor_loader manual__2025-02-12T00:50:08.797848+00:00 [running]> on host 6cb17d549356
+[2025-02-12T00:50:39.003+0000] {taskinstance.py:3132} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='dnc' AIRFLOW_CTX_DAG_ID='clientes_dag' AIRFLOW_CTX_TASK_ID='extractor_loader' AIRFLOW_CTX_EXECUTION_DATE='2025-02-12T00:50:08.797848+00:00' AIRFLOW_CTX_TRY_NUMBER='4' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-02-12T00:50:08.797848+00:00'
+[2025-02-12T00:50:39.004+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-02-12T00:50:39.006+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-02-12T00:50:39.007+0000] {logging_mixin.py:190} INFO - Current task name:extractor_loader state:running start_date:2025-02-12 00:50:38.778959+00:00
+[2025-02-12T00:50:39.007+0000] {logging_mixin.py:190} INFO - Dag name:clientes_dag and current dag run status:running
+[2025-02-12T00:50:39.008+0000] {taskinstance.py:731} INFO - ::endgroup::
+[2025-02-12T00:50:39.009+0000] {logging_mixin.py:190} INFO - Initializing data extraction from Raw Folder
+[2025-02-12T00:50:39.031+0000] {taskinstance.py:3311} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 767, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 733, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 422, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/app/extractor_loader.py", line 17, in extractor_from_raw_to_bronze
+    s3_client = boto3.client(
+                ^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/boto3/__init__.py", line 92, in client
+    return _get_default_session().client(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/boto3/session.py", line 297, in client
+    return self._session.create_client(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/session.py", line 950, in create_client
+    raise PartialCredentialsError(
+botocore.exceptions.PartialCredentialsError: Partial credentials found in explicit, missing: aws_access_key_id
+[2025-02-12T00:50:39.049+0000] {logging_mixin.py:190} INFO - Task instance in failure state
+[2025-02-12T00:50:39.050+0000] {logging_mixin.py:190} INFO - Task start:2025-02-12 00:50:38.778959+00:00 end:2025-02-12 00:50:39.049081+00:00 duration:0.270122
+[2025-02-12T00:50:39.051+0000] {logging_mixin.py:190} INFO - Task:<Task(PythonOperator): extractor_loader> dag:<DAG: clientes_dag> dagrun:<DagRun clientes_dag @ 2025-02-12 00:50:08.797848+00:00: manual__2025-02-12T00:50:08.797848+00:00, state:running, queued_at: 2025-02-12 00:50:08.820262+00:00. externally triggered: True>
+[2025-02-12T00:50:39.052+0000] {logging_mixin.py:190} INFO - Failure caused by Partial credentials found in explicit, missing: aws_access_key_id
+[2025-02-12T00:50:39.052+0000] {taskinstance.py:1225} INFO - Marking task as UP_FOR_RETRY. dag_id=clientes_dag, task_id=extractor_loader, run_id=manual__2025-02-12T00:50:08.797848+00:00, execution_date=20250212T005008, start_date=20250212T005038, end_date=20250212T005039
+[2025-02-12T00:50:39.072+0000] {taskinstance.py:340} INFO - ::group::Post task execution logs
+[2025-02-12T00:50:39.073+0000] {standard_task_runner.py:124} ERROR - Failed to execute job 277 for task extractor_loader (Partial credentials found in explicit, missing: aws_access_key_id; 83)
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py", line 117, in _start_by_fork
+    ret = args.func(args, dag=self.dag)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/cli_config.py", line 49, in command
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/cli.py", line 116, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 483, in task_run
+    task_return_code = _run_task_by_selected_method(args, _dag, ti)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 256, in _run_task_by_selected_method
+    return _run_raw_task(args, ti)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 341, in _run_raw_task
+    return ti._run_raw_task(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 97, in wrapper
+    return func(*args, session=session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3005, in _run_raw_task
+    return _run_raw_task(
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 273, in _run_raw_task
+    TaskInstance._execute_task_with_callbacks(
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3159, in _execute_task_with_callbacks
+    result = self._execute_task(context, task_orig)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3183, in _execute_task
+    return _execute_task(self, context, task_orig)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 767, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 733, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 422, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/app/extractor_loader.py", line 17, in extractor_from_raw_to_bronze
+    s3_client = boto3.client(
+                ^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/boto3/__init__.py", line 92, in client
+    return _get_default_session().client(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/boto3/session.py", line 297, in client
+    return self._session.create_client(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/session.py", line 950, in create_client
+    raise PartialCredentialsError(
+botocore.exceptions.PartialCredentialsError: Partial credentials found in explicit, missing: aws_access_key_id
+[2025-02-12T00:50:39.102+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 1
+[2025-02-12T00:50:39.127+0000] {taskinstance.py:3895} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-02-12T00:50:39.129+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

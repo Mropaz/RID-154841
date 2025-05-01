@@ -1,0 +1,46 @@
+[2025-02-14T01:10:39.243+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-02-14T01:10:39.263+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: clientes_dag.extractor_loader manual__2025-02-14T01:10:34.836423+00:00 [queued]>
+[2025-02-14T01:10:39.273+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: clientes_dag.extractor_loader manual__2025-02-14T01:10:34.836423+00:00 [queued]>
+[2025-02-14T01:10:39.274+0000] {taskinstance.py:2866} INFO - Starting attempt 1 of 6
+[2025-02-14T01:10:39.291+0000] {taskinstance.py:2889} INFO - Executing <Task(PythonOperator): extractor_loader> on 2025-02-14 01:10:34.836423+00:00
+[2025-02-14T01:10:39.299+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=54) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-02-14T01:10:39.301+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'clientes_dag', 'extractor_loader', 'manual__2025-02-14T01:10:34.836423+00:00', '--job-id', '517', '--raw', '--subdir', 'DAGS_FOLDER/app/clientes_dag.py', '--cfg-path', '/tmp/tmpsi60s_kt']
+[2025-02-14T01:10:39.302+0000] {standard_task_runner.py:72} INFO - Started process 63 to run task
+[2025-02-14T01:10:39.302+0000] {standard_task_runner.py:105} INFO - Job 517: Subtask extractor_loader
+[2025-02-14T01:10:39.392+0000] {task_command.py:467} INFO - Running <TaskInstance: clientes_dag.extractor_loader manual__2025-02-14T01:10:34.836423+00:00 [running]> on host f09114347d7a
+[2025-02-14T01:10:39.623+0000] {taskinstance.py:3132} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='dnc' AIRFLOW_CTX_DAG_ID='clientes_dag' AIRFLOW_CTX_TASK_ID='extractor_loader' AIRFLOW_CTX_EXECUTION_DATE='2025-02-14T01:10:34.836423+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-02-14T01:10:34.836423+00:00'
+[2025-02-14T01:10:39.626+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-02-14T01:10:39.630+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-02-14T01:10:39.631+0000] {logging_mixin.py:190} INFO - Current task name:extractor_loader state:running start_date:2025-02-14 01:10:39.265824+00:00
+[2025-02-14T01:10:39.632+0000] {logging_mixin.py:190} INFO - Dag name:clientes_dag and current dag run status:running
+[2025-02-14T01:10:39.633+0000] {taskinstance.py:731} INFO - ::endgroup::
+[2025-02-14T01:10:39.635+0000] {logging_mixin.py:190} INFO - Initializing data upload from Raw Folder
+[2025-02-14T01:10:39.688+0000] {credentials.py:1147} INFO - Found credentials in environment variables.
+[2025-02-14T01:10:42.598+0000] {logging_mixin.py:190} INFO - <class 'pandas.core.frame.DataFrame'>
+RangeIndex: 99999 entries, 0 to 99998
+Data columns (total 6 columns):
+ #   Column               Non-Null Count  Dtype 
+---  ------               --------------  ----- 
+ 0   id                   99999 non-null  int64 
+ 1   name                 75113 non-null  object
+ 2   email                74953 non-null  object
+ 3   date_of_birth        74828 non-null  object
+ 4   signup_date          99998 non-null  object
+ 5   subscription_status  99999 non-null  object
+dtypes: int64(1), object(5)
+memory usage: 4.6+ MB
+[2025-02-14T01:10:42.599+0000] {logging_mixin.py:190} INFO - Dataframe Clientes None
+[2025-02-14T01:10:42.600+0000] {logging_mixin.py:190} INFO - Saving Data into Bronze Layer
+[2025-02-14T01:10:42.679+0000] {credentials.py:567} INFO - Found credentials in environment variables.
+[2025-02-14T01:10:43.833+0000] {python.py:240} INFO - Done. Returned value was: None
+[2025-02-14T01:10:43.849+0000] {taskinstance.py:340} INFO - ::group::Post task execution logs
+[2025-02-14T01:10:43.850+0000] {taskinstance.py:352} INFO - Marking task as SUCCESS. dag_id=clientes_dag, task_id=extractor_loader, run_id=manual__2025-02-14T01:10:34.836423+00:00, execution_date=20250214T011034, start_date=20250214T011039, end_date=20250214T011043
+[2025-02-14T01:10:43.862+0000] {logging_mixin.py:190} INFO - Task instance in success state
+[2025-02-14T01:10:43.863+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: running
+[2025-02-14T01:10:43.864+0000] {logging_mixin.py:190} INFO - Dag name:clientes_dag queued_at:2025-02-14 01:10:34.865513+00:00
+[2025-02-14T01:10:43.865+0000] {logging_mixin.py:190} INFO - Task hostname:f09114347d7a operator:PythonOperator
+[2025-02-14T01:10:43.884+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-02-14T01:10:43.906+0000] {taskinstance.py:3895} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2025-02-14T01:10:43.908+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

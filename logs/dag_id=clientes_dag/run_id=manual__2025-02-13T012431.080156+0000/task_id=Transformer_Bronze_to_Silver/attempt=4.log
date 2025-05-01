@@ -1,0 +1,119 @@
+[2025-02-13T01:25:06.926+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-02-13T01:25:06.942+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: clientes_dag.Transformer_Bronze_to_Silver manual__2025-02-13T01:24:31.080156+00:00 [queued]>
+[2025-02-13T01:25:06.951+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: clientes_dag.Transformer_Bronze_to_Silver manual__2025-02-13T01:24:31.080156+00:00 [queued]>
+[2025-02-13T01:25:06.951+0000] {taskinstance.py:2866} INFO - Starting attempt 4 of 6
+[2025-02-13T01:25:06.964+0000] {taskinstance.py:2889} INFO - Executing <Task(PythonOperator): Transformer_Bronze_to_Silver> on 2025-02-13 01:24:31.080156+00:00
+[2025-02-13T01:25:06.971+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=84) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-02-13T01:25:06.973+0000] {standard_task_runner.py:72} INFO - Started process 86 to run task
+[2025-02-13T01:25:06.973+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'clientes_dag', 'Transformer_Bronze_to_Silver', 'manual__2025-02-13T01:24:31.080156+00:00', '--job-id', '450', '--raw', '--subdir', 'DAGS_FOLDER/app/clientes_dag.py', '--cfg-path', '/tmp/tmphvuy3gg5']
+[2025-02-13T01:25:06.974+0000] {standard_task_runner.py:105} INFO - Job 450: Subtask Transformer_Bronze_to_Silver
+[2025-02-13T01:25:07.021+0000] {task_command.py:467} INFO - Running <TaskInstance: clientes_dag.Transformer_Bronze_to_Silver manual__2025-02-13T01:24:31.080156+00:00 [running]> on host f09114347d7a
+[2025-02-13T01:25:07.096+0000] {taskinstance.py:3132} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='dnc' AIRFLOW_CTX_DAG_ID='clientes_dag' AIRFLOW_CTX_TASK_ID='Transformer_Bronze_to_Silver' AIRFLOW_CTX_EXECUTION_DATE='2025-02-13T01:24:31.080156+00:00' AIRFLOW_CTX_TRY_NUMBER='4' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-02-13T01:24:31.080156+00:00'
+[2025-02-13T01:25:07.098+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-02-13T01:25:07.099+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-02-13T01:25:07.099+0000] {logging_mixin.py:190} INFO - Current task name:Transformer_Bronze_to_Silver state:running start_date:2025-02-13 01:25:06.942970+00:00
+[2025-02-13T01:25:07.100+0000] {logging_mixin.py:190} INFO - Dag name:clientes_dag and current dag run status:running
+[2025-02-13T01:25:07.100+0000] {taskinstance.py:731} INFO - ::endgroup::
+[2025-02-13T01:25:07.101+0000] {logging_mixin.py:190} INFO - Initializing data transformation from Bronze to Silver
+[2025-02-13T01:25:07.120+0000] {credentials.py:1147} INFO - Found credentials in environment variables.
+[2025-02-13T01:25:07.193+0000] {taskinstance.py:3311} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 767, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 733, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 422, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/app/transformer.py", line 26, in transformer_process_from_bronze_to_silver
+    response = s3_client.list_object_v2(
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/client.py", line 922, in __getattr__
+    raise AttributeError(
+AttributeError: 'S3' object has no attribute 'list_object_v2'. Did you mean: 'list_objects_v2'?
+[2025-02-13T01:25:07.218+0000] {logging_mixin.py:190} INFO - Task instance in failure state
+[2025-02-13T01:25:07.219+0000] {logging_mixin.py:190} INFO - Task start:2025-02-13 01:25:06.942970+00:00 end:2025-02-13 01:25:07.218254+00:00 duration:0.275284
+[2025-02-13T01:25:07.220+0000] {logging_mixin.py:190} INFO - Task:<Task(PythonOperator): Transformer_Bronze_to_Silver> dag:<DAG: clientes_dag> dagrun:<DagRun clientes_dag @ 2025-02-13 01:24:31.080156+00:00: manual__2025-02-13T01:24:31.080156+00:00, state:running, queued_at: 2025-02-13 01:24:31.097263+00:00. externally triggered: True>
+[2025-02-13T01:25:07.221+0000] {logging_mixin.py:190} INFO - Failure caused by 'S3' object has no attribute 'list_object_v2'
+[2025-02-13T01:25:07.222+0000] {taskinstance.py:1225} INFO - Marking task as UP_FOR_RETRY. dag_id=clientes_dag, task_id=Transformer_Bronze_to_Silver, run_id=manual__2025-02-13T01:24:31.080156+00:00, execution_date=20250213T012431, start_date=20250213T012506, end_date=20250213T012507
+[2025-02-13T01:25:07.259+0000] {taskinstance.py:340} INFO - ::group::Post task execution logs
+[2025-02-13T01:25:07.260+0000] {standard_task_runner.py:124} ERROR - Failed to execute job 450 for task Transformer_Bronze_to_Silver ('S3' object has no attribute 'list_object_v2'; 86)
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py", line 117, in _start_by_fork
+    ret = args.func(args, dag=self.dag)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/cli_config.py", line 49, in command
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/cli.py", line 116, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 483, in task_run
+    task_return_code = _run_task_by_selected_method(args, _dag, ti)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 256, in _run_task_by_selected_method
+    return _run_raw_task(args, ti)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 341, in _run_raw_task
+    return ti._run_raw_task(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 97, in wrapper
+    return func(*args, session=session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3005, in _run_raw_task
+    return _run_raw_task(
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 273, in _run_raw_task
+    TaskInstance._execute_task_with_callbacks(
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3159, in _execute_task_with_callbacks
+    result = self._execute_task(context, task_orig)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3183, in _execute_task
+    return _execute_task(self, context, task_orig)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 767, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 733, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 422, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/app/transformer.py", line 26, in transformer_process_from_bronze_to_silver
+    response = s3_client.list_object_v2(
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/client.py", line 922, in __getattr__
+    raise AttributeError(
+AttributeError: 'S3' object has no attribute 'list_object_v2'. Did you mean: 'list_objects_v2'?
+[2025-02-13T01:25:07.309+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 1
+[2025-02-13T01:25:07.368+0000] {taskinstance.py:3895} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-02-13T01:25:07.370+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

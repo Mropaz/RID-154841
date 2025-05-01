@@ -1,0 +1,229 @@
+[2025-02-13T00:55:34.517+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-02-13T00:55:34.533+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: clientes_dag.extractor_loader manual__2025-02-13T00:55:00.012188+00:00 [queued]>
+[2025-02-13T00:55:34.543+0000] {taskinstance.py:2613} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: clientes_dag.extractor_loader manual__2025-02-13T00:55:00.012188+00:00 [queued]>
+[2025-02-13T00:55:34.544+0000] {taskinstance.py:2866} INFO - Starting attempt 4 of 6
+[2025-02-13T00:55:34.562+0000] {taskinstance.py:2889} INFO - Executing <Task(PythonOperator): extractor_loader> on 2025-02-13 00:55:00.012188+00:00
+[2025-02-13T00:55:34.570+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=89) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-02-13T00:55:34.574+0000] {standard_task_runner.py:72} INFO - Started process 91 to run task
+[2025-02-13T00:55:34.574+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'clientes_dag', 'extractor_loader', 'manual__2025-02-13T00:55:00.012188+00:00', '--job-id', '405', '--raw', '--subdir', 'DAGS_FOLDER/app/clientes_dag.py', '--cfg-path', '/tmp/tmpo9013o_r']
+[2025-02-13T00:55:34.576+0000] {standard_task_runner.py:105} INFO - Job 405: Subtask extractor_loader
+[2025-02-13T00:55:34.704+0000] {task_command.py:467} INFO - Running <TaskInstance: clientes_dag.extractor_loader manual__2025-02-13T00:55:00.012188+00:00 [running]> on host 6cb17d549356
+[2025-02-13T00:55:34.983+0000] {taskinstance.py:3132} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='dnc' AIRFLOW_CTX_DAG_ID='clientes_dag' AIRFLOW_CTX_TASK_ID='extractor_loader' AIRFLOW_CTX_EXECUTION_DATE='2025-02-13T00:55:00.012188+00:00' AIRFLOW_CTX_TRY_NUMBER='4' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-02-13T00:55:00.012188+00:00'
+[2025-02-13T00:55:34.986+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-02-13T00:55:34.987+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-02-13T00:55:34.988+0000] {logging_mixin.py:190} INFO - Current task name:extractor_loader state:running start_date:2025-02-13 00:55:34.534106+00:00
+[2025-02-13T00:55:34.989+0000] {logging_mixin.py:190} INFO - Dag name:clientes_dag and current dag run status:running
+[2025-02-13T00:55:34.990+0000] {taskinstance.py:731} INFO - ::endgroup::
+[2025-02-13T00:55:34.991+0000] {logging_mixin.py:190} INFO - Initializing data extraction from Raw Folder
+[2025-02-13T00:55:38.110+0000] {logging_mixin.py:190} INFO - <class 'pandas.core.frame.DataFrame'>
+RangeIndex: 99999 entries, 0 to 99998
+Data columns (total 6 columns):
+ #   Column               Non-Null Count  Dtype 
+---  ------               --------------  ----- 
+ 0   id                   99999 non-null  int64 
+ 1   name                 75113 non-null  object
+ 2   email                74953 non-null  object
+ 3   date_of_birth        74828 non-null  object
+ 4   signup_date          99998 non-null  object
+ 5   subscription_status  99999 non-null  object
+dtypes: int64(1), object(5)
+memory usage: 4.6+ MB
+[2025-02-13T00:55:38.114+0000] {logging_mixin.py:190} INFO - Dataframe Clientes None
+[2025-02-13T00:55:38.122+0000] {logging_mixin.py:190} INFO - Saving Data into Bronze Layer
+[2025-02-13T00:55:38.575+0000] {taskinstance.py:3311} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 767, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 733, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 422, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/app/extractor_loader.py", line 35, in extractor_from_raw_to_bronze
+    pq.write_to_dataset(
+  File "/home/airflow/.local/lib/python3.12/site-packages/pyarrow/parquet/core.py", line 2172, in write_to_dataset
+    ds.write_dataset(
+  File "/home/airflow/.local/lib/python3.12/site-packages/pyarrow/dataset.py", line 1030, in write_dataset
+    _filesystemdataset_write(
+  File "pyarrow/_dataset.pyx", line 4047, in pyarrow._dataset._filesystemdataset_write
+  File "pyarrow/error.pxi", line 89, in pyarrow.lib.check_status
+  File "pyarrow/_fs.pyx", line 1526, in pyarrow._fs._cb_create_dir
+  File "/home/airflow/.local/lib/python3.12/site-packages/pyarrow/fs.py", line 361, in create_dir
+    self.fs.mkdir(path, create_parents=recursive)
+  File "/home/airflow/.local/lib/python3.12/site-packages/fsspec/asyn.py", line 118, in wrapper
+    return sync(self.loop, func, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/fsspec/asyn.py", line 103, in sync
+    raise return_result
+  File "/home/airflow/.local/lib/python3.12/site-packages/fsspec/asyn.py", line 56, in _runner
+    result[0] = await coro
+                ^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/s3fs/core.py", line 933, in _mkdir
+    await self._call_s3("create_bucket", **params)
+  File "/home/airflow/.local/lib/python3.12/site-packages/s3fs/core.py", line 371, in _call_s3
+    return await _error_wrapper(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/s3fs/core.py", line 146, in _error_wrapper
+    raise err
+  File "/home/airflow/.local/lib/python3.12/site-packages/s3fs/core.py", line 114, in _error_wrapper
+    return await func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/aiobotocore/client.py", line 394, in _make_api_call
+    http, parsed_response = await self._make_request(
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/aiobotocore/client.py", line 420, in _make_request
+    return await self._endpoint.make_request(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/aiobotocore/endpoint.py", line 96, in _send_request
+    request = await self.create_request(request_dict, operation_model)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/aiobotocore/endpoint.py", line 84, in create_request
+    await self._event_emitter.emit(
+  File "/home/airflow/.local/lib/python3.12/site-packages/aiobotocore/hooks.py", line 66, in _emit
+    response = await resolve_awaitable(handler(**kwargs))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/aiobotocore/_helpers.py", line 6, in resolve_awaitable
+    return await obj
+           ^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/aiobotocore/signers.py", line 24, in handler
+    return await self.sign(operation_name, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/aiobotocore/signers.py", line 90, in sign
+    auth.add_auth(request)
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/auth.py", line 423, in add_auth
+    raise NoCredentialsError()
+botocore.exceptions.NoCredentialsError: Unable to locate credentials
+[2025-02-13T00:55:38.626+0000] {logging_mixin.py:190} INFO - Task instance in failure state
+[2025-02-13T00:55:38.627+0000] {logging_mixin.py:190} INFO - Task start:2025-02-13 00:55:34.534106+00:00 end:2025-02-13 00:55:38.625513+00:00 duration:4.091407
+[2025-02-13T00:55:38.628+0000] {logging_mixin.py:190} INFO - Task:<Task(PythonOperator): extractor_loader> dag:<DAG: clientes_dag> dagrun:<DagRun clientes_dag @ 2025-02-13 00:55:00.012188+00:00: manual__2025-02-13T00:55:00.012188+00:00, state:running, queued_at: 2025-02-13 00:55:00.038249+00:00. externally triggered: True>
+[2025-02-13T00:55:38.628+0000] {logging_mixin.py:190} INFO - Failure caused by Unable to locate credentials
+[2025-02-13T00:55:38.629+0000] {taskinstance.py:1225} INFO - Marking task as UP_FOR_RETRY. dag_id=clientes_dag, task_id=extractor_loader, run_id=manual__2025-02-13T00:55:00.012188+00:00, execution_date=20250213T005500, start_date=20250213T005534, end_date=20250213T005538
+[2025-02-13T00:55:38.693+0000] {taskinstance.py:340} INFO - ::group::Post task execution logs
+[2025-02-13T00:55:38.695+0000] {standard_task_runner.py:124} ERROR - Failed to execute job 405 for task extractor_loader (Unable to locate credentials; 91)
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py", line 117, in _start_by_fork
+    ret = args.func(args, dag=self.dag)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/cli_config.py", line 49, in command
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/cli.py", line 116, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 483, in task_run
+    task_return_code = _run_task_by_selected_method(args, _dag, ti)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 256, in _run_task_by_selected_method
+    return _run_raw_task(args, ti)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 341, in _run_raw_task
+    return ti._run_raw_task(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 97, in wrapper
+    return func(*args, session=session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3005, in _run_raw_task
+    return _run_raw_task(
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 273, in _run_raw_task
+    TaskInstance._execute_task_with_callbacks(
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3159, in _execute_task_with_callbacks
+    result = self._execute_task(context, task_orig)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3183, in _execute_task
+    return _execute_task(self, context, task_orig)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 767, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 733, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 422, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/app/extractor_loader.py", line 35, in extractor_from_raw_to_bronze
+    pq.write_to_dataset(
+  File "/home/airflow/.local/lib/python3.12/site-packages/pyarrow/parquet/core.py", line 2172, in write_to_dataset
+    ds.write_dataset(
+  File "/home/airflow/.local/lib/python3.12/site-packages/pyarrow/dataset.py", line 1030, in write_dataset
+    _filesystemdataset_write(
+  File "pyarrow/_dataset.pyx", line 4047, in pyarrow._dataset._filesystemdataset_write
+  File "pyarrow/error.pxi", line 89, in pyarrow.lib.check_status
+  File "pyarrow/_fs.pyx", line 1526, in pyarrow._fs._cb_create_dir
+  File "/home/airflow/.local/lib/python3.12/site-packages/pyarrow/fs.py", line 361, in create_dir
+    self.fs.mkdir(path, create_parents=recursive)
+  File "/home/airflow/.local/lib/python3.12/site-packages/fsspec/asyn.py", line 118, in wrapper
+    return sync(self.loop, func, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/fsspec/asyn.py", line 103, in sync
+    raise return_result
+  File "/home/airflow/.local/lib/python3.12/site-packages/fsspec/asyn.py", line 56, in _runner
+    result[0] = await coro
+                ^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/s3fs/core.py", line 933, in _mkdir
+    await self._call_s3("create_bucket", **params)
+  File "/home/airflow/.local/lib/python3.12/site-packages/s3fs/core.py", line 371, in _call_s3
+    return await _error_wrapper(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/s3fs/core.py", line 146, in _error_wrapper
+    raise err
+  File "/home/airflow/.local/lib/python3.12/site-packages/s3fs/core.py", line 114, in _error_wrapper
+    return await func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/aiobotocore/client.py", line 394, in _make_api_call
+    http, parsed_response = await self._make_request(
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/aiobotocore/client.py", line 420, in _make_request
+    return await self._endpoint.make_request(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/aiobotocore/endpoint.py", line 96, in _send_request
+    request = await self.create_request(request_dict, operation_model)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/aiobotocore/endpoint.py", line 84, in create_request
+    await self._event_emitter.emit(
+  File "/home/airflow/.local/lib/python3.12/site-packages/aiobotocore/hooks.py", line 66, in _emit
+    response = await resolve_awaitable(handler(**kwargs))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/aiobotocore/_helpers.py", line 6, in resolve_awaitable
+    return await obj
+           ^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/aiobotocore/signers.py", line 24, in handler
+    return await self.sign(operation_name, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/aiobotocore/signers.py", line 90, in sign
+    auth.add_auth(request)
+  File "/home/airflow/.local/lib/python3.12/site-packages/botocore/auth.py", line 423, in add_auth
+    raise NoCredentialsError()
+botocore.exceptions.NoCredentialsError: Unable to locate credentials
+[2025-02-13T00:55:38.743+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 1
+[2025-02-13T00:55:38.770+0000] {taskinstance.py:3895} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-02-13T00:55:38.772+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
